@@ -24,7 +24,7 @@ class Post extends Model
     }
 
     protected function scopeFilter($query, array $filter){
-        
+        // ويش ذا الزين!!
         $query->when($filter['search'] ?? false, function($query,$search){ 
             
         $query
