@@ -13,16 +13,6 @@ class Post extends Model
 
     protected $with = ['category', 'author'];
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
     protected function scopeFilter($query, array $filter)
     {
         // ويش ذا الزين!!
@@ -34,11 +24,26 @@ class Post extends Model
 
 
         $query->when($filter['category'] ?? false,fn ($query, $category) =>
-            $query
-                ->whereExist(fn ($query) =>
-                $query->from('categories')
-                    ->where('categories.id', 'posts.category_id')
-                    ->where('categories.slug', $category))
-        );
+            $query->whereHas('category',fn ($query) =>
+                $query->where('slug', $category)
+            ));
+
+        // $query->when($filter['category'] ?? false,fn ($query, $category) =>
+        //     $query
+        //         ->whereExists(fn ($query) =>
+        //         $query->from('categories')
+        //             ->whereColumn('categories.id', 'posts.category_id')
+        //             ->where('categories.slug', $category))
+        // );
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
