@@ -23,10 +23,19 @@ class Post extends Model
             ->orWhere('body', 'like', '%' . $search . '%'));
 
 
-        $query->when($filter['category'] ?? false,fn ($query, $category) =>
-            $query->whereHas('category',fn ($query) =>
-                $query->where('slug', $category)
-            ));
+        $query->when($filter['category'] ?? false, fn ($query, $category) =>
+        $query->whereHas(
+            'category',
+            fn ($query) =>
+            $query->where('slug', $category)
+        ));
+
+        $query->when($filter['author'] ?? false, fn ($query, $author) =>
+        $query->whereHas(
+            'author',
+            fn ($query) =>
+            $query->where('username', $author)
+        ));
 
         // $query->when($filter['category'] ?? false,fn ($query, $category) =>
         //     $query
