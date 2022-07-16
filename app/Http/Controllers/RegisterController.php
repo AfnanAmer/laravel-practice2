@@ -24,6 +24,8 @@ class RegisterController extends Controller
 
         User::create($attributes);
 
-        return redirect('/');
+        // session()->flash('success','Now you are registered !');
+
+        return redirect('/')->with('success','Now you are registered !');
     }
 }
