@@ -14,26 +14,25 @@ class SessionsController extends Controller
     public function store()
     {
         //validation
-        $attributes=request()->validate([
+        $attributes = request()->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
         //authentication
-        if(auth()->attempt($attributes)){
-            session()->regenerate();
-            //session fixation
+        if (auth()->attempt($attributes)) {
+            //auth failed
+            throw ValidationException::withMessages(['email' => 'Your provided credentials are wrong!']);
+            //another way
+            // return back()->withInput()
+            // ->withErrors(['email'=>'Your provided credentials are wrong!']);
 
-            //redirect with a success flash message
-            return redirect('/')->with('success','Welcome Back!');
         }
+        session()->regenerate();
+        //session fixation
 
-        //auth failed
-        throw ValidationException::withMessages(['email'=>'Your provided credentials are wrong!']);
-        //another way
-        // return back()->withInput()
-        // ->withErrors(['email'=>'Your provided credentials are wrong!']);
-
+        //redirect with a success flash message
+        return redirect('/')->with('success', 'Welcome Back!');
     }
     public function destroy()
     {
