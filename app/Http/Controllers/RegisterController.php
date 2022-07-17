@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class RegisterController extends Controller
 {
     public function create()
@@ -22,10 +23,10 @@ class RegisterController extends Controller
         ]);
 
 
-        User::create($attributes);
+        $user = User::create($attributes);
 
         // session()->flash('success','Now you are registered !');
-
-        return redirect('/')->with('success','Now you are registered !');
+        auth()->login($user);
+        return redirect('/')->with('success', 'Now you are registered !');
     }
 }
