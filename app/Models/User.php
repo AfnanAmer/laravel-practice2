@@ -23,7 +23,7 @@ class User extends Authenticatable
     //     'password',
     // ];
 
-    protected $guarded = []; //to fix the no default value for username :)
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -48,10 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-    
-    public function setPasswordAttribute($password){
-        $this->attributes['password']=bcrypt($password);
-    }
 
-    
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

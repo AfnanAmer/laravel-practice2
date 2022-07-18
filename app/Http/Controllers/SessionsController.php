@@ -20,7 +20,7 @@ class SessionsController extends Controller
         ]);
 
         //authentication
-        if (auth()->attempt($attributes)) {
+        if (!auth()->attempt($attributes)) {
             //auth failed
             throw ValidationException::withMessages(['email' => 'Your provided credentials are wrong!']);
             //another way
