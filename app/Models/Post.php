@@ -50,6 +50,10 @@ class Post extends Model
         //             ->where('categories.slug', $category))
         // );
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     public function category()
     {
