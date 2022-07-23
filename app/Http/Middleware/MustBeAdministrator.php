@@ -27,7 +27,7 @@ class MustBeAdministrator
         // if (auth()->user()?->username !== 'mee') {
         //     abort('403'); 
         // }
-        abort_if(auth()->user()?->username !== 'mee', Response::HTTP_FORBIDDEN);
+        abort_if(auth()->user()?->username !== 'jumanahmt', Response::HTTP_FORBIDDEN);
         return $next($request);
     }
 }
