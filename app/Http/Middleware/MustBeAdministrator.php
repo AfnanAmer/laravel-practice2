@@ -27,7 +27,11 @@ class MustBeAdministrator
         // if (auth()->user()?->username !== 'mee') {
         //     abort('403'); 
         // }
+<<<<<<< Updated upstream
         abort_if(auth()->user()?->username !== 'bsahyer', Response::HTTP_FORBIDDEN);
+=======
+        abort_if(auth()->user()?->username !== 'jumanah', Response::HTTP_FORBIDDEN);
+>>>>>>> Stashed changes
         return $next($request);
     }
 }
