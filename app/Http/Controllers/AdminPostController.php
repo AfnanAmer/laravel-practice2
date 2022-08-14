@@ -36,7 +36,9 @@ class AdminPostController extends Controller
 
     public function update(Post $post)
     {
+     
         $attributes = $this->validatePost($post);
+        
 
         if ($attributes['thumbnail'] ?? false) {
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
@@ -58,7 +60,7 @@ class AdminPostController extends Controller
             'excerpt' => 'required',
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')],
-            'published_at' => 'required'
+           'time'=>'required'
         ]);
     }
 
